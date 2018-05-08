@@ -5,7 +5,7 @@ use core\lib\model;
 
 class guestbookModel extends model
 {
-    public $table = 'guestbook';
+    public $table = 'page';
 
     public function all()
     {
@@ -14,8 +14,8 @@ class guestbookModel extends model
 
     public function addOne($data)
     {
-        $sql = $this->prepare("INSERT INTO ".$this->table."(`title`,`content`,`createtime`) VALUES (?,?,?)");
-        return $sql->execute(array($data['title'],$data['content'],$data['createtime']));
+        $sql = $this->prepare("INSERT INTO ".$this->table."(`userid`,`title`,`content`,`create_time`) VALUES (?,?,?,?)");
+        return $sql->execute(array(2,$data['title'],$data['content'],$data['createtime']));
         
     }
 

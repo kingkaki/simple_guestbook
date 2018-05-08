@@ -1,7 +1,7 @@
 #user table
 CREATE TABLE `user`(
     `id` int(11) unsigned NOT NULL auto_increment,
-    `name` VARCHAR(20) NOT NULL DEFAULT '',
+    `username` VARCHAR(20) NOT NULL DEFAULT '',
     `password` VARCHAR(20) NOT NULL DEFAULT '',
     `last_ip` VARCHAR(20) NOT NULL DEFAULT '',
     `is_admin` tinyint(1) NOT NULL DEFAULT 0,
@@ -12,7 +12,7 @@ CREATE TABLE `user`(
 #page table
 CREATE TABLE `page`(
     `id` int(11) unsigned NOT NULL auto_increment,
-    `userid` int(11) references user(id),
+    foreign key(`userid`) int(11) references user(id),
     `title` VARCHAR(20) NOT NULL DEFAULT '',
     `content` text NOT NULL,
     `create_time` int(11) unsigned NOT NULL DEFAULT 0,
@@ -23,8 +23,8 @@ CREATE TABLE `page`(
 #comment table
 CREATE TABLE `comment`(
     `id` int(11) unsigned NOT NULL auto_increment,
-    `userid` int(11) references user(id),
-    `pageid` int(11) references page(id),
+    foreign key(`userid`) int(11) references user(id),
+    foreign key(`pageid` int(11)) references page(id),
     `content` VARCHAR(255) NOT NULL DEFAULT '',
     `create_time` int(11) unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
