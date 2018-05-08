@@ -12,22 +12,25 @@ CREATE TABLE `user`(
 #page table
 CREATE TABLE `page`(
     `id` int(11) unsigned NOT NULL auto_increment,
-    foreign key(`userid`) int(11) references user(id),
+    `userid` int(11) unsigned NOT NULL DEFAULT 0,
     `title` VARCHAR(20) NOT NULL DEFAULT '',
     `content` text NOT NULL,
     `create_time` int(11) unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
+    FOREIGN KEY(`userid`) references user(id),
     KEY userid(`userid`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 #comment table
 CREATE TABLE `comment`(
     `id` int(11) unsigned NOT NULL auto_increment,
-    foreign key(`userid`) int(11) references user(id),
-    foreign key(`pageid` int(11)) references page(id),
+    `userid` int(11) unsigned NOT NULL DEFAULT 0,
+    `pageid` int(11) unsigned NOT NULL DEFAULT 0,
     `content` VARCHAR(255) NOT NULL DEFAULT '',
     `create_time` int(11) unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
+    FOREIGN KEY(`userid`) references user(id),
+    FOREIGN KEY(`pageid`) references page(id),
     KEY userid(`userid`),
     KEY pageid(`pageid`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
