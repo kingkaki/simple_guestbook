@@ -19,7 +19,12 @@ class indexCtrl extends \core\mypro
     //添加留言
     public function add()
     {
-        $this->display('add.html');
+        if(loggedin()){
+            $this->display('add.html');
+        }else{
+            jump('/user/login/');
+        }
+        
     }
 
     //保存留言

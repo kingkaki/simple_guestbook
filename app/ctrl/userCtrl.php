@@ -7,8 +7,7 @@ class userCtrl extends \core\mypro
 	public function index()
 	//显示自己的留言
 	{
-		session_start();
-		if(empty($_SESSION['user'])){
+		if(!loggedin()){
 			jump('/user/login/');
 		}else{
 			$user = $_SESSION['user'];
@@ -38,6 +37,13 @@ class userCtrl extends \core\mypro
 		}
 		
 		$this->display('login.html');
+	}
+
+	public function logout()
+	{
+		session_start();
+		session_destroy();
+		jump('/');
 	}
 
 	public function register()

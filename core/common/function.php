@@ -64,3 +64,25 @@ function jump($url)
     exit();
 
 }
+
+
+// degbug_p  显示后退出
+function dp($var)
+{
+    p($var);
+    exit();
+}
+
+
+function loggedin()
+{
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+    if(empty($_SESSION['user'])){
+        return FALSE;
+    }else{
+        return TRUE;
+    }
+}
