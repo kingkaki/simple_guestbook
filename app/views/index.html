@@ -21,7 +21,13 @@ foreach($data as $row){
 	echo "<p>标题 : ".$row['title']."</p>\n";
 	echo "<p>内容 : ".$row['content']."</p>\n";
 	echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
-	echo "<a href=\"/index/del/?id=".$row['id']."\">删除</a><br><br>";
+	if(empty($_SESSION)){
+		session_start();
+	}
+	if($row['userid']===$_SESSION['user']['id']){
+		 echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a><br><br>";
+	}
+	
 	echo "***************************************";
 	
 };

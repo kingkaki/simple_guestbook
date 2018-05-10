@@ -37,6 +37,8 @@ class indexCtrl extends \core\mypro
             jump('/index/add');
         }
         $data['createtime'] = time();
+        session_start();
+        $data['id'] = $_SESSION['user']['id'];
         $model = new guestbookModel();
         $ret = $model->addOne($data);
         if($ret){
