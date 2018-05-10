@@ -7,6 +7,7 @@ class guestbookModel extends model
 {
     public $table = 'page';
 
+
     public function all()
     {
         return $this->query('SELECT * FROM '.$this->table);
@@ -28,6 +29,14 @@ class guestbookModel extends model
             return true;
         }else{
             return false;
+        }
+    }
+
+    public function  getUserByPage($id)
+    {
+        $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");
+        foreach ($res as $r) {
+				return $r['userid'];
         }
     }
 

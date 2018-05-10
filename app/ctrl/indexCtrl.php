@@ -30,6 +30,13 @@ class indexCtrl extends \core\mypro
     //保存留言
     public function save()
     {
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if(!isset($_SESSION['user'])){
+            p('<a href="/user/login/">plz login</a>');
+            exit();
+        }
         $data['title'] = post('title');
         $data['content'] = post('content');
         if($data['title']==''||$data['content']==''){
@@ -50,20 +57,34 @@ class indexCtrl extends \core\mypro
 
     public function del()
     {
-        $id = get('id',0,'int');
-
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $id = get('id',0,'int');          
         if($id){
             $model = new guestbookModel();
-            $ret = $model->delOne($id);
-            if($ret){
-                jump('/');
+            //权限判断
+            //dp($_SESSION['user']['id']);
+            if(isset($_SESSION['user']) && $model->getUserByPage($id)==$_SESSION['user']['id'])
+            {
+                $ret = $model->delOne($id);
+                if($ret){
+                    jump('/');
+                }else{
+                    p('delete error');
+                }
+
             }else{
-                p('delete error');
+                p('illegal');
             }
+
         }else{
             exit('params error');
         }
 
+
+        
     }
+
 
 }

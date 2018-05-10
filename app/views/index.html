@@ -17,20 +17,22 @@
 <br><br>
 <?php
 echo "*******************所有留言********************";
-foreach($data as $row){
-	echo "<p>标题 : ".$row['title']."</p>\n";
-	echo "<p>内容 : ".$row['content']."</p>\n";
+
+foreach($data as $row){ 
+	echo "<p>标题 : ".$row['title']."</p>\n"; 
+	echo "<p>内容 : ".$row['content']."</p>\n"; 
+	date_default_timezone_set('PRC');
 	echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
-	if(empty($_SESSION)){
+	if(!isset($_SESSION)){
 		session_start();
 	}
-	if($row['userid']===$_SESSION['user']['id']){
-		 echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a><br><br>";
+	if(isset($_SESSION['user']) && $row['userid']===$_SESSION['user']['id']){
+		echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a><br><br>";
 	}
-	
-	echo "***************************************";
-	
-};
+	echo "***************************************"; 
+}
+
+
 ?>
 </body>
 </html>
