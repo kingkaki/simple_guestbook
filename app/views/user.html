@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>User Home</title>
+</head>
+<body>
+<h1>User Home</h1>
+<?php
+
+echo "<h2>Welcome ".$user['username']."</h2><a href=\"#\">注销</a><br><br>";
+echo "<p>****************我的留言****************</p>";
+
+if(!empty($data)){
+	foreach($data as $row){ 
+		echo "<p>标题 : ".$row['title']."</p>\n";
+		echo "<p>内容 : ".$row['content']."</p>\n"; 
+		echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
+		echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a><br><br>";
+		echo "***************************************";
+	}
+}else{
+	echo "目前暂无留言";
+}
+?>
+</body>
+</html>

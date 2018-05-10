@@ -7,12 +7,36 @@ class userCtrl extends \core\mypro
 	public function index()
 	//显示自己的留言
 	{
-		jump('/user/login/');
+		session_start();
+		if(empty($_SESSION['user'])){
+			jump('/user/login/');
+		}else{
+			$user = $_SESSION['user'];
+			$this->assign('user',$user);
+			$userid = $user['id'];
+			$model = new userModel();
+			$data = $model->getGuestbookById($userid);
+			//var_dump($data);
+			$this->assign('data',$data);
+			$this->display('user.html');
+		}
+		
 	}
 
 	public function login()
 	//显示自己的留言
 	{
+		if(!empty($_POST)){
+			$data['username'] = post('username');
+			$data['password'] = post('password');
+			$model = new userModel();
+			$res = $model->findOne($data);
+			session_start();
+			$_SESSION['user'] = $res; 
+			jump('/user/index/');
+			exit();
+		}
+		
 		$this->display('login.html');
 	}
 

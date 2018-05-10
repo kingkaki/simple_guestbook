@@ -2,7 +2,7 @@
 CREATE TABLE `user`(
     `id` int(11) unsigned NOT NULL auto_increment,
     `username` VARCHAR(20) NOT NULL DEFAULT '',
-    `password` VARCHAR(20) NOT NULL DEFAULT '',
+    `password` VARCHAR(50) NOT NULL DEFAULT '',
     `last_ip` VARCHAR(20) NOT NULL DEFAULT '',
     `is_admin` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
