@@ -13,6 +13,14 @@ class guestbookModel extends model
         return $this->query('SELECT * FROM '.$this->table);
     }
 
+    public function getOne($id)
+    {
+        $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");
+        foreach ($res as $r) {
+				return $r;
+        }
+    }
+
     public function addOne($data)
     {
         $sql = $this->prepare("INSERT INTO ".$this->table."(`userid`,`title`,`content`,`create_time`) VALUES (?,?,?,?)");

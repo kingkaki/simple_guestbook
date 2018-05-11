@@ -23,15 +23,15 @@ foreach($data as $row){
 	echo "<p>内容 : ".$row['content']."</p>\n"; 
 	date_default_timezone_set('PRC');
 	echo "<p>发布时间： ".date('Y-m-d H:i:s',$row['create_time'])."</p>\n";
+	echo "<a href='/index/page/?id=".$row['id']."'>留言详情</a>&nbsp;&nbsp;";
 	if(!isset($_SESSION)){
 		session_start();
 	}
 	if(isset($_SESSION['user']) && $row['userid']===$_SESSION['user']['id']){
-		echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a><br><br>";
+		echo "<a href=\"/index/del/?id=".$row[ 'id']. "\">删除</a>";
 	}
-	echo "***************************************"; 
+	echo "<br><br>***************************************"; 
 }
-
 
 ?>
 </body>

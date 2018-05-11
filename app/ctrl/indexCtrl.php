@@ -1,6 +1,7 @@
 <?php
 namespace app\ctrl;
 use app\model\guestbookModel;
+use app\model\commentModel;
 
 class indexCtrl extends \core\mypro
 {
@@ -25,6 +26,87 @@ class indexCtrl extends \core\mypro
             jump('/user/login/');
         }
         
+    }
+
+    public function page()
+    {
+        $id = get('id',0,'int');
+        if($id===0){
+            dp('error');
+        }
+        $model = new guestbookModel();
+        $data = $model->getOne($id);
+        $commodel = new commentModel();
+        $comments = $commodel->getcomments($id);
+        $this->assign('comments',$comments);
+        $this->assign('data',$data);
+        $this->display('page.html');
+    }
+
+    public function commentadd()
+    {
+        if((!loggedin())){
+            p('<a href="/user/login/">plz login</a>');
+            exit();
+        }
+        $content = post('content');
+        $pageid = post('pageid',0,'int');
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $data['userid'] = $_SESSION['user']['id'];
+        $data['pageid'] = $pageid;
+        $data['content'] = $content;
+        $data['create_time'] = time();
+        $model = new commentModel($data);
+        $re = $model->addOne($data);
+        if($re){
+            jump('/index/page/?id='.$pageid);
+        }else{
+            dp('comment add error');
+        }
+
+    }
+    
+    public function commentdel()
+    {
+        if((!loggedin())){
+            p('<a href="/user/login/">plz login</a>');
+            exit();
+        }
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        $id = get('id',0,'int');
+        if($id)
+        {
+            $model = new commentModel();
+            // p($id);
+            // p($_SESSION['user']['id']);
+            // dp($model->getUserByComment($id));
+            if(isset($_SESSION['user']) && $model->getUserByComment($id)==$_SESSION['user']['id'])
+            {  
+                $pageid = $model->getPageid($id);                          
+                $re = $model->delOne($id);
+                //dp($re);
+                if($re){                  
+                    //dp($pageid);                    
+                    jump('/index/page/?id='.$pageid);
+                }else{
+                    dp('comment del error');
+                }
+
+            }else{
+                dp('illegal!');
+            }
+
+        }else{
+            dp('params error!');
+        }
+        
+        
+
+
     }
 
     //保存留言
