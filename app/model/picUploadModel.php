@@ -18,10 +18,14 @@ class picUploadModel extends upload
         $suffix = pathinfo($filename, PATHINFO_EXTENSION);
         if(in_array($suffix,$this->allow_types))
         {
-            $new_name = md5(mt_rand()).".".$suffix;
-            $path = $this->upload_path.$new_name;
-            move_uploaded_file($file['tmp_name'],$path);
-            return $path;
+            $new_name = md5_file($file['tmp_name']).".".$suffix;
+            $relative_path = $this->upload_path.$new_name;
+            $real_path = APP.$relative_path;
+            move_uploaded_file($file['tmp_name'],$real_path);
+            //更新session
+            session_start();
+            $_SESSION['user']['avatar'] = $relative_path;
+            return $relative_path;
         }else{
             return FALSE;
         }

@@ -58,7 +58,7 @@ class userCtrl extends \core\mypro
 		$userid = post('userid',0,'int');
 		$avatar = post('avatar');
 		//dp($userid);
-		if($userid && auth($userid))
+		if($userid && auth($userid) && !$_FILES['error'])
 		{
 			$file = $_FILES['avatar'];
 			$upload = new picUploadModel();
@@ -67,6 +67,7 @@ class userCtrl extends \core\mypro
 			{
 				$model = new userModel();
 				$model->addAvatar($userid,$pic_path);
+
 				jump('/user/index/');
 
 			}else{

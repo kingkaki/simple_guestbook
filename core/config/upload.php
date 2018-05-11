@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'AVATAR' => APP.'/upload/avatars/',
+    'AVATAR' => '/upload/avatars/',
 );

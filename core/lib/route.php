@@ -16,6 +16,13 @@ class route{
         if(isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI']!= '/' ){
             $path = $_SERVER['REQUEST_URI'];
             $patharr = explode('/',trim($path,'/'));
+            //处理图片等静态文件
+            if($patharr[0]==='upload')
+            {
+                header('content-type:image/jpg;');
+                echo file_get_contents(APP.$_SERVER['REQUEST_URI']);
+                exit();
+            }
             if(isset($patharr[0])){
                 $this->ctrl = $patharr[0];
             }

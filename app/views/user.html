@@ -9,15 +9,18 @@
 
 
 <h2>Welcome <?php echo $user['username']; ?></h2>
+<?php if(!empty($user['avatar'])) { ?>
+	<img src="<?php echo $user['avatar'];?>" width="100px" height="100px">
+<?php } ?>
 <form method="POST" action="/user/uploadavatar/" enctype="multipart/form-data">
 	<input type="file" name="avatar">
 	<input type="hidden" name="userid" value="<?php echo $user['id']; ?>">
 	<input type="submit" value="更改头像">
 </form>
 <br>
-<a href=\"/user/logout/\">注销</a>
+<a href="/user/logout/">注销</a>
 &nbsp;&nbsp;
-<a href=\"/\">返回主页</a>
+<a href="/">返回主页</a>
 <br>
 <p>****************我的留言****************</p>
 
