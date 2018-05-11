@@ -13,6 +13,8 @@ class guestbookModel extends model
         return $this->query('SELECT * FROM '.$this->table);
     }
 
+
+
     public function getOne($id)
     {
         $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");

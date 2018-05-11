@@ -15,6 +15,12 @@ class userModel extends model
         
     }
 
+    public function addAvatar($id,$path)
+    {
+        $sql = $this->prepare("UPDATE `".$this->table."` SET `avatar`=? WHERE `id`=?");
+        return $sql->execute(array($path,$id));
+    }
+
 	public function findOne($data)
     {
         $res = $this->query("SELECT * FROM ".$this->table." WHERE `username`= '".$data['username']."' AND `password`= '".md5($data['password'])."' limit 0,1");

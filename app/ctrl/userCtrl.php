@@ -1,6 +1,7 @@
 <?php
 namespace app\ctrl;
 use app\model\userModel;
+use app\model\picUploadModel;
 
 class userCtrl extends \core\mypro
 {
@@ -44,6 +45,36 @@ class userCtrl extends \core\mypro
 		session_start();
 		session_destroy();
 		jump('/');
+	}
+
+	// public function test()
+	// {
+	// 	$pic = new picUploadModel();
+	// 	dp($pic->upload_path);
+	// }
+
+	public function uploadavatar()
+	{
+		$userid = post('userid',0,'int');
+		$avatar = post('avatar');
+		//dp($userid);
+		if($userid && auth($userid))
+		{
+			$file = $_FILES['avatar'];
+			$upload = new picUploadModel();
+			$pic_path = $upload->upload($file);
+			if($pic_path)
+			{
+				$model = new userModel();
+				$model->addAvatar($userid,$pic_path);
+				jump('/user/index/');
+
+			}else{
+				p('上传失败');
+			}
+			
+
+		}
 	}
 
 	public function register()

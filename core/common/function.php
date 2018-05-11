@@ -86,3 +86,16 @@ function loggedin()
         return TRUE;
     }
 }
+
+function auth($userid)
+{
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    if($_SESSION['user']['id']===$userid)
+    {
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
