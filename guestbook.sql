@@ -5,6 +5,7 @@ CREATE TABLE `user`(
     `password` VARCHAR(50) NOT NULL DEFAULT '',
     `last_ip` VARCHAR(20) NOT NULL DEFAULT '',
     `is_admin` tinyint(1) NOT NULL DEFAULT 0,
+    `avatar` VARCHAR(50) NOT NULL DEFAULT '',
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
