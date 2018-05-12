@@ -10,7 +10,7 @@ define('MYPRO',realpath("./"));
 define('CORE',MYPRO.'/core');
 define('APP',MYPRO.'/app');
 define('MODULE','app');
-define('DEBUG',true);
+define('DEBUG',TRUE);
 
 
 if(DEBUG){

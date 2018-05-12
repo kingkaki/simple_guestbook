@@ -21,19 +21,24 @@ class userModel extends model
         return $sql->execute(array($path,$id));
     }
 
-	public function findOne($data)
+	public function getOne($data)
     {
-        $res = $this->query("SELECT * FROM ".$this->table." WHERE `username`= '".$data['username']."' AND `password`= '".md5($data['password'])."' limit 0,1");
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `username`= ? AND `password`= ? limit 0,1");
+        //dp(array($data['username'],md5($data['password'])));
+        $sql->execute(array($data['username'],md5($data['password'])));
+        $res = $sql->fetchAll();
         
         foreach ($res as $r) {
-				return $r;
+                return $r;
         }	
         
     }
 
     public function getGuestbookById($id)
     {
-        $res = $this->query("SELECT * FROM ".$this->page_table." WHERE `userid`= '".$id."'");
+        $sql = $this->prepare("SELECT * FROM ".$this->page_table." WHERE `userid`= ? ");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
         return $res;
 
     }

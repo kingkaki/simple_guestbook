@@ -23,7 +23,9 @@ class picUploadModel extends upload
             $real_path = APP.$relative_path;
             move_uploaded_file($file['tmp_name'],$real_path);
             //更新session
-            session_start();
+            if(!isset($_SESSION)){
+                session_start();
+            }
             $_SESSION['user']['avatar'] = $relative_path;
             return $relative_path;
         }else{

@@ -12,8 +12,9 @@ function p($var)
 }
 
 function post($name, $default=false, $fitt=false)
-{
+{  
     if(isset($_POST[$name])){
+        $_POST[$name] = addslashes($_POST[$name]);
         if($fitt){
             switch ($fitt) {
                 case 'int':
@@ -37,6 +38,7 @@ function post($name, $default=false, $fitt=false)
 function get($name, $default=false, $fitt=false)
 {
     if(isset($_GET[$name])){
+        $_GET[$name] = addslashes($_GET[$name]);
         if($fitt){
             switch ($fitt) {
                 case 'int':

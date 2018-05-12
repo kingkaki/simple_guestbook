@@ -25,12 +25,18 @@ class userCtrl extends \core\mypro
 
 	public function login()
 	//显示自己的留言
-	{
+	{	
+		if(!isset($_SESSION)){
+			session_start();
+		}
+		if(isset($_SESSION['user'])){
+			jump('/user/index/');
+		}
 		if(!empty($_POST)){
 			$data['username'] = post('username');
 			$data['password'] = post('password');
 			$model = new userModel();
-			$res = $model->findOne($data);
+			$res = $model->getOne($data);
 			session_start();
 			$_SESSION['user'] = $res; 
 			jump('/user/index/');
@@ -58,7 +64,7 @@ class userCtrl extends \core\mypro
 		$userid = post('userid',0,'int');
 		$avatar = post('avatar');
 		//dp($userid);
-		if($userid && auth($userid) && !$_FILES['error'])
+		if($userid && auth($userid) && !$_FILES['avatar']['error'])
 		{
 			$file = $_FILES['avatar'];
 			$upload = new picUploadModel();
@@ -71,7 +77,7 @@ class userCtrl extends \core\mypro
 				jump('/user/index/');
 
 			}else{
-				p('上传失败');
+				p('uplaod fault');
 			}
 			
 

@@ -17,7 +17,10 @@ class guestbookModel extends model
 
     public function getOne($id)
     {
-        $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `id`= ? ");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
+
         foreach ($res as $r) {
 				return $r;
         }
@@ -44,7 +47,9 @@ class guestbookModel extends model
 
     public function  getUserByPage($id)
     {
-        $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `id`= ? ");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
         foreach ($res as $r) {
 				return $r['userid'];
         }

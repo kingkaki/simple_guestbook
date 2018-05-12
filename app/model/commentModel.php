@@ -16,13 +16,17 @@ class commentModel extends model
 
     public function getcomments($id)
     {
-        $res = $this->query("SELECT * FROM ".$this->table." WHERE `pageid`= '".$id."'");
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `pageid`= ? ");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
         return $res;
     }
 
     public function getPageid($id)
     {
-        $res = $this->query("SELECT * FROM ".$this->table." WHERE `id`= '".$id."'");
+        $sql = $this->prepare("SELECT * FROM ".$this->table." WHERE `id`= ? ");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
         foreach ($res as $r) {    
             return $r['pageid'];
         }
@@ -30,7 +34,9 @@ class commentModel extends model
 
     public function getUserByComment($id)
     {
-        $res = $this->query("SELECT b.userid FROM ".$this->table." AS a JOIN ".$this->user_table." AS b ON a.pageid = b.id where a.id ='".$id."'");
+        $sql = $this->prepare("SELECT b.userid FROM ".$this->table." AS a JOIN ".$this->user_table." AS b ON a.pageid = b.id where a.id ='".$id."'");
+        $sql->execute(array($id));
+        $res = $sql->fetchAll();
         //dp($res);
         foreach ($res as $r) {    
             return $r['userid'];
