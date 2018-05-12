@@ -51,7 +51,8 @@
 
         public function assign($name, $value)
         {
-            $this->assign[$name] = $value;
+            //dp($value);
+            $this->assign[$name] = xss_escape($value);
         }
 
         public function display($file)

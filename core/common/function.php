@@ -89,6 +89,7 @@ function loggedin()
     }
 }
 
+
 function auth($userid)
 {
     if(!isset($_SESSION)){
@@ -100,4 +101,38 @@ function auth($userid)
     }else{
         return FALSE;
     }
+}
+
+function xss_escape($data)
+{
+    if(is_string($data))
+    {
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+    if(is_array($data))
+    {
+        if(is_assoc($data)){
+            foreach($data as $a=>$t){   
+                $data[$a] =  xss_escape($t);
+            }
+            return $data;
+        }else{
+            $i = 0;
+            foreach($data as $t){   
+                $data[$i++] = xss_escape($t);              
+            }
+            return $data;
+        }
+
+    }
+    return $data;
+}
+
+function is_assoc($array) {
+    if(is_array($array)) {
+        $keys = array_keys($array);
+        return $keys != array_keys($keys);
+    }
+    return false;
 }

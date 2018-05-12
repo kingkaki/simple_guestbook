@@ -10,13 +10,13 @@ define('MYPRO',realpath("./"));
 define('CORE',MYPRO.'/core');
 define('APP',MYPRO.'/app');
 define('MODULE','app');
-define('DEBUG',TRUE);
+define('DEBUG',FALSE);
 
 
 if(DEBUG){
-    ini_set('display_error','On');
+    ini_set('display_errors','On');
 }else{
-    ini_set('display_error','Off');
+    ini_set('display_errors','Off');
 }
 
 
